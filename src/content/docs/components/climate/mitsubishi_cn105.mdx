@@ -234,10 +234,9 @@ mitsubishi_cn105:
 ## `mitsubishi_cn105.vane.control` Action
 
 The `mitsubishi_cn105.vane.control` action changes the vane direction. Its `id` must reference the top-level
-Mitsubishi CN105 hub. The currently supported setting is `vertical.direction`, which accepts `AUTO`, `1`, `2`, `3`,
-`4`, `5`, or `SWING`. It can also be a lambda returning one of the corresponding
-`VERTICAL_VANE_MODE_*` values. A lambda returning `VERTICAL_VANE_MODE_UNKNOWN` is ignored and does not change the
-vane direction.
+Mitsubishi CN105 hub. It takes `vertical.direction` and `horizontal.direction`; at least one of `vertical` or
+`horizontal` must be set. Each can also be a lambda returning one of the corresponding `VERTICAL_VANE_MODE_*` or
+`HORIZONTAL_VANE_MODE_*` values. A lambda returning an `UNKNOWN` value is ignored and does not change that vane.
 
 ```yaml
 on_...:
@@ -245,6 +244,8 @@ on_...:
       id: hp
       vertical:
         direction: SWING
+      horizontal:
+        direction: SPLIT
 ```
 
 Configuration variables:
@@ -252,6 +253,9 @@ Configuration variables:
 - **id** (**Required**, ID): The ID of the top-level `mitsubishi_cn105` hub.
 - **vertical** (*Optional*): Vertical vane settings.
   - **direction** (*Optional*, string, templatable): One of `AUTO`, `1`, `2`, `3`, `4`, `5`, or `SWING`.
+- **horizontal** (*Optional*): Horizontal (wide) vane settings.
+  - **direction** (*Optional*, string, templatable): One of `1` (far left), `2`, `3`, `4`, `5` (far right), `SPLIT`
+    (left and right), or `SWING`.
 
 ### Custom Vertical Vane Select
 
